@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
+import useFetch from '../hooks/useFetch';
+import serchItems from '../utils/serchItems';
+import keywordSet from '../lang/keyword.json';
 
 const SearchHome = () => {
   const [searchWord, setSearchWord] = useState('');
+  const { loading: ploading, data: productsData } = useFetch({
+    requestUrl: 'https://static.pxl.ai/problem/data/products.json',
+  });
+  const { loading: rloading, data: regionsData } = useFetch({
+    requestUrl: 'https://static.pxl.ai/problem/data/regions.json',
+  });
+
+  const [list, setList] = useState([]);
+  const { distinguishKeyword } = serchItems({
+    ploading,
+    productsData,
+    rloading,
+    regionsData,
+    searchWord,
+    setList,
+    keywordSet,
+  });
 
   const handleChange = (e) => setSearchWord(e.target.value);
 
   const handleSearch = () => {
     // 엔터를 누르거나 검색 버튼을 클릭했을 때의 동작
+    distinguishKeyword();
   };
+  console.log(list);
 
   return (
     <div className="h-screen w-screen relative">
