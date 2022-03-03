@@ -38,7 +38,7 @@ const Detail = () => {
     category_names: ['c1.tops', 'c2.tops', 'c3.blouses'],
   };
   return (
-    <div className="m-6 w-3/12">
+    <div className="m-6 sm:w-3/12">
       <div className="min-w-120 h-100 bg-gray-200">
         <img
           src={image_url}
