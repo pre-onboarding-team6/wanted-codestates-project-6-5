@@ -3,11 +3,11 @@ const serchItems = ({
   productsData,
   rloading,
   regionsData,
-  keyword,
+  searchWord,
   setList,
   keywordSet,
 }) => {
-  let word = keyword.trim();
+  let word = searchWord.trim();
   const checkNum = /^-?\d+$/;
   const checkUrl = /^http[s]?\:\/\//i;
   const isNum = checkNum.test(word) ? true : false;
@@ -57,7 +57,9 @@ const serchItems = ({
       if (ploading) {
         return;
       } else {
-        const filterd = productsData.filter((item) => item.name.match(keyword));
+        const filterd = productsData.filter((item) =>
+          item.name.match(searchWord),
+        );
         setList(filterd);
 
         Object.keys(keywordSet).forEach(function (k) {
