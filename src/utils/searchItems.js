@@ -1,10 +1,12 @@
-const serchItems = ({
+const searchItems = ({
   ploading,
   productsData,
   rloading,
   regionsData,
   searchWord,
   setList,
+  setDataType,
+  setDetailItem,
   keywordSet,
 }) => {
   let word = searchWord.trim();
@@ -22,16 +24,16 @@ const serchItems = ({
         const filterd = regionsData.filter(
           (item) => item.product_code.toString() === word,
         );
-        setList(filterd);
+        setDetailItem(filterd);
 
         const category = filterd[0]['category_names'];
-        const keywordFilterd = regionsData.filter(
-          (item) => item.category_names[0].includes(category[0]),
-          // item.category_names[1].includes(category[1]) ||
-          // item.category_names[2].includes(category[2]),
+        const keywordFilterd = productsData.filter((item) =>
+          item.category_names[0].includes(category[0]),
         );
+        console.log([...keywordFilterd]);
         setList([...keywordFilterd]);
-        return 'regionsData';
+
+        setDataType('regionsData');
       }
       //2. 이미지 주소 - regionsData
     } else if (isUrl) {
@@ -41,16 +43,16 @@ const serchItems = ({
         const filterd = regionsData.filter((item) =>
           item.image_url.match(word),
         );
-        setList(filterd);
+        setDetailItem(filterd);
 
         const category = filterd[0]['category_names'];
-        const keywordFilterd = regionsData.filter(
-          (item) => item.category_names[0].includes(category[0]),
-          // item.category_names[1].includes(category[1]) ||
-          // item.category_names[2].includes(category[2]),
+        const keywordFilterd = productsData.filter((item) =>
+          item.category_names[0].includes(category[0]),
         );
         setList([...keywordFilterd]);
-        return 'regionsData';
+        console.log([...keywordFilterd]);
+
+        setDataType('regionsData');
       }
       //3. 키워드
     } else {
@@ -65,8 +67,6 @@ const serchItems = ({
         Object.keys(keywordSet).forEach(function (k) {
           if (k === word) {
             for (let i = 0; i < keywordSet[k].length; i++) {
-              // const keywordFilterd = productsData.filter(filterByCategory);
-
               const keywordFilterd = productsData.filter(
                 (item) =>
                   item.category_names[0].includes(keywordSet[k][i]) ||
@@ -74,11 +74,12 @@ const serchItems = ({
                   item.category_names[2].includes(keywordSet[k][i]),
               );
               setList([...keywordFilterd]);
+              console.log([...keywordFilterd]);
             }
           }
         });
 
-        return 'productsData';
+        setDataType('productsData');
       }
     }
   };
@@ -87,4 +88,4 @@ const serchItems = ({
     distinguishKeyword,
   };
 };
-export default serchItems;
+export default searchItems;

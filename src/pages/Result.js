@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Detail from '../components/Detail';
 import ItemGrid from '../components/ItemGrid';
+import Loader from '../components/Loader';
 
-const Result = () => {
-  const [isDetail, setIsDetail] = useState(true);
+const Result = ({ list, dataType, detailItem }) => {
+  const [isDetail, setIsDetail] = useState(false);
+
+  useEffect(() => {
+    if (dataType === 'regionsData') {
+      setIsDetail(true);
+    }
+  }, [dataType]);
 
   return (
     <div className="flex flex-col">
-      <header className="px-7 py-5 flex">
+      <header className="flex py-5 px-7">
         <Link to="/">
           <img
             className="h-10 cursor-pointer"
@@ -18,9 +26,10 @@ const Result = () => {
         </Link>
       </header>
       <main className="sm:flex">
-        {isDetail && <Detail />}
-        <ItemGrid />
+        {isDetail && <Detail item={detailItem} />}
+        <ItemGrid list={list} />
       </main>
+      <Loader />
     </div>
   );
 };
