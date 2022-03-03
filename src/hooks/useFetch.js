@@ -46,5 +46,6 @@ export default function useFetch({ requestUrl, maxAge = 3000 }) {
     loading,
     data,
     refetch,
+    error,
   };
 }
