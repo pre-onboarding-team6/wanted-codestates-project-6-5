@@ -58,14 +58,15 @@ const Detail = () => {
           <Tag tagName="gender" value={regionData.gender.slice(7)} />
           {regionData.category_names.map((cate, idx) => (
             <Tag
+              key={idx}
               tagName={idx === 0 ? 'category' : 'sub_category'}
               value={cate.slice(3)}
             />
           ))}
-          {regionData.attributes.map((attr) => {
+          {regionData.attributes.map((attr, idx) => {
             const tagName = Object.keys(attr)[0];
             const value = Object.values(attr)[0];
-            return <Tag tagName={tagName} value={value} />;
+            return <Tag key={idx} tagName={tagName} value={value} />;
           })}
         </div>
       </div>
