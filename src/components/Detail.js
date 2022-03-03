@@ -59,7 +59,7 @@ const Detail = () => {
           {regionData.category_names.map((cate, idx) => (
             <Tag
               tagName={idx === 0 ? 'category' : 'sub_category'}
-              value={cate}
+              value={cate.slice(3)}
             />
           ))}
           {regionData.attributes.map((attr) => {
