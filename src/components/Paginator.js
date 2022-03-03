@@ -21,19 +21,14 @@ export default function Paginator({ lastPage }) {
     if (location.search) {
       const queries = parseQueryString(location.search);
       if (queries.page) setPage(Number(queries.page));
-
       const rest = location.search.split('page=')[0];
       setUrl(location.pathname + rest);
-      console.log(queries);
-      console.log(location);
-      console.log(rest);
     }
   }, [location.search]);
 
   const prevItems = () => {
     const result = [];
     for (let i = page - 3; i < page; i++) {
-      console.log(i);
       if (i > 0) {
         result.push(
           <Link
