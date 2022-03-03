@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SearchHome = () => {
+  const [searchWord, setSearchWord] = useState('');
+
+  const handleChange = (e) => setSearchWord(e.target.value);
+
+  const handleSearch = () => {
+    // 엔터를 누르거나 검색 버튼을 클릭했을 때의 동작
+  };
+
   return (
     <div className="h-screen flex flex-col">
       <header className="px-7 py-5">
@@ -20,12 +28,18 @@ const SearchHome = () => {
         <div className="w-2/3 flex items-center flex-col justify-center sm:flex-row md:w-1/2 lg:w-1/3">
           <input
             type="text"
+            value={searchWord}
+            onChange={handleChange}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') handleSearch();
+            }}
             placeholder="IMAGE URL or KEYWORD"
             className="flex-1 py-2 px-5 w-full rounded-full border-2 shadow-lg"
           />
           <button
             type="button"
             className="h-9 mt-5 w-20 sm:ml-5 sm:mt-0 rounded-md bg-gray-300 sm:w-16"
+            onClick={handleSearch}
           >
             검색
           </button>
