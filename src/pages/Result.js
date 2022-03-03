@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom';
 import Detail from '../components/Detail';
 import ItemGrid from '../components/ItemGrid';
 import Loader from '../components/Loader';
+import Paginator from '../components/Paginator';
 
-const Result = ({ list, dataType, detailItem }) => {
+const Result = ({ list, dataType, detailItem, ploading, rloading }) => {
   const [isDetail, setIsDetail] = useState(false);
+  const [pageStep, setPageStep] = useState(1);
+  const [filteredList, setFilteredList] = useState([]);
+
+  console.log(ploading, rloading); // 계속 false 나옴
+
+  console.log(list);
 
   useEffect(() => {
     if (dataType === 'regionsData') {
@@ -28,8 +35,14 @@ const Result = ({ list, dataType, detailItem }) => {
       <main className="sm:flex">
         {isDetail && <Detail item={detailItem} />}
         <ItemGrid list={list} />
+        <Paginator lastPage={Math.ceil(list.length / 10)} />
       </main>
-      <Loader />
+      {(ploading || rloading) && (
+        <div>
+          {/* width height 100 viewport로 */}
+          <Loader />
+        </div>
+      )}
     </div>
   );
 };
