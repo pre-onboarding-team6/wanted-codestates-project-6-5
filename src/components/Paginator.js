@@ -18,11 +18,22 @@ export default function Paginator({ lastPage }) {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.search) {
-      const queries = parseQueryString(location.search);
-      if (queries.page) setPage(Number(queries.page));
+    const queries = parseQueryString(location.search);
+    if (Object.keys(queries).length > 0 && queries.page) {
+      const urls = [];
+      Object.keys(queries).map((key) => {
+        if (key !== 'page') {
+          urls.push(`${key}=${queries[key]}`);
+        }
+      });
+      setPage(Number(queries.page));
+      setUrl(location.pathname + '?' + urls.join('&') + '&');
+    } else if (Object.keys(queries).length > 0 && !queries.page) {
       const rest = location.search.split('page=')[0];
-      setUrl(location.pathname + rest);
+      setUrl(location.pathname + rest + '&');
+    } else {
+      setPage(1);
+      setUrl(location.pathname + '?');
     }
   }, [location.search]);
 
