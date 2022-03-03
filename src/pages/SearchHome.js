@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import useFetch from '../hooks/useFetch';
 import searchItems from '../utils/searchItems';
 import keywordSet from '../lang/keyword.json';
 import { useNavigate } from 'react-router-dom';
 
-const SearchHome = ({ setList, setDataType, setDetailItem }) => {
+const SearchHome = ({
+  setList,
+  setDataType,
+  setDetailItem,
+  ploading,
+  productsData,
+  rloading,
+  regionsData,
+}) => {
   const navigate = useNavigate();
   const [searchWord, setSearchWord] = useState('');
-  const { loading: ploading, data: productsData } = useFetch({
-    requestUrl: 'https://static.pxl.ai/problem/data/products.json',
-  });
-  const { loading: rloading, data: regionsData } = useFetch({
-    requestUrl: 'https://static.pxl.ai/problem/data/regions.json',
-  });
 
   const { distinguishKeyword } = searchItems({
     ploading,
@@ -32,7 +33,10 @@ const SearchHome = ({ setList, setDataType, setDetailItem }) => {
     if (searchWord === '') return;
     // 엔터를 누르거나 검색 버튼을 클릭했을 때의 동작
     distinguishKeyword();
-    navigate('/search');
+    navigate({
+      pathname: '/search',
+      search: `?keyword=${searchWord}`,
+    });
   };
 
   return (

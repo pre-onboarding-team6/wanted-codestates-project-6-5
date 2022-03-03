@@ -35,6 +35,7 @@
   "bottoms": ["bottoms", "pants", "skirts"],
   "하의": ["bottoms", "pants", "skirts"],
 
+  "vest": ["vests"],
   "vests": ["vests"],
   "조끼": ["vests"],
   "쪼끼": ["vests"],
