@@ -18,8 +18,10 @@ const getPos = (event) => {
 
 export default function Canvas() {
   const [infoBoxes, setInfoBoxes] = useState([]);
-
+  const [isEditingID, setIsEditingID] = useState(0);
   const [isDrawing, setIsDrawing] = useState(false);
+
+  console.log(isEditingID);
 
   const [startXY, setStartXY] = useState([]);
   const [boxSize, setBoxSize] = useState({
@@ -39,18 +41,20 @@ export default function Canvas() {
 
   const startDrawing = (e) => {
     e.preventDefault();
+    if (isEditingID) {
+      return;
+    }
     setIsDrawing(true);
     const pos = getPos(e);
     const startX = pos.x;
     const startY = pos.y;
 
-    console.log(startX, startY);
     setStartXY([startX, startY]);
   };
 
   const drawing = (e) => {
     e.preventDefault();
-    if (!isDrawing) {
+    if (!isDrawing || isEditingID) {
       return;
     } else {
       const pos = getPos(e);
@@ -73,6 +77,9 @@ export default function Canvas() {
 
   const finishDrawing = (e) => {
     e.preventDefault();
+    if (isEditingID) {
+      return;
+    }
 
     if (Math.abs(boxSize.width) < 30 || Math.abs(boxSize.height) < 30) {
       alert('가로, 세로 길이는 최소 30px 이상이어야 합니다.');
@@ -114,8 +121,6 @@ export default function Canvas() {
       text,
     };
 
-    console.log(startXY);
-
     const newInfoBoxes = [...infoBoxes, newInfobox];
     setInfoBoxes(newInfoBoxes);
     setItem(newInfoBoxes);
@@ -129,6 +134,42 @@ export default function Canvas() {
     setItem(newInfoBoxes);
   };
 
+  const onChangeText = (text, selectedItem) => {
+    // console.log(text, selectedItem);
+    let result = [];
+    for (let i = 0; i < infoBoxes.length; i++) {
+      // console.log(infoBoxes[i]);
+      if (infoBoxes[i].id === selectedItem.id) {
+        infoBoxes[i].text = text;
+        result.push(infoBoxes[i]);
+      } else {
+        result.push(infoBoxes[i]);
+      }
+    }
+    setInfoBoxes(result);
+    setItem(result);
+  };
+
+  const changeCoordiante = (newCoordinate, item) => {
+    if (newCoordinate.width < 30 || newCoordinate.height < 30) {
+      setInfoBoxes([...infoBoxes]);
+      setItem([...infoBoxes]);
+    } else {
+      let result = [];
+      for (let i = 0; i < infoBoxes.length; i++) {
+        if (infoBoxes[i].id === item.id) {
+          infoBoxes[i].boxSize.width = newCoordinate.width;
+          infoBoxes[i].boxSize.height = newCoordinate.height;
+          result.push(infoBoxes[i]);
+        } else {
+          result.push(infoBoxes[i]);
+        }
+      }
+      setInfoBoxes(result);
+      setItem(result);
+    }
+  };
+
   useEffect(() => {
     const newInfoBoxes = getItem();
     if (newInfoBoxes !== null) setInfoBoxes(newInfoBoxes);
@@ -136,10 +177,20 @@ export default function Canvas() {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full min-h-screen">
+      <div className="flex flex-col items-center justify-center w-full min-h-screen">
+        <div className="w-2/3 m-auto">
+          <span style={{ display: 'block' }}>
+            1. 각 상품정보 박스 Title은 클릭해서 수정하고 Enter를 누르면 수정이
+            반영됩니다.
+          </span>
+          <span style={{ display: 'block' }}>
+            2. 각 상품정보 박스 오른쪽 하단 모서리를 드래그해 크기를 조정할 수
+            있습니다.
+          </span>
+        </div>
         <div className="relative">
           <div
-            className="absolute z-50 w-40 h-auto font-semibold list-outside bg-white bg-opacity-70 top-3 left-3 p-7"
+            className="absolute z-50 h-auto font-semibold list-outside bg-white w-52 bg-opacity-70 top-3 left-3 p-7"
             style={{ listStyleType: 'square' }}
           >
             {infoBoxes &&
@@ -148,7 +199,15 @@ export default function Canvas() {
           <div className="absolute top-0 left-0 z-10 w-0 h-0 space-y-1 break-all">
             {infoBoxes &&
               infoBoxes?.map((item, index) => (
-                <ItemInfo key={index} item={item} onDelete={deleteItemInfo} />
+                <ItemInfo
+                  key={index}
+                  item={item}
+                  onDelete={deleteItemInfo}
+                  onChangeText={onChangeText}
+                  onChangeCoordinate={changeCoordiante}
+                  isEditingID={isEditingID}
+                  setIsEditingID={setIsEditingID}
+                />
               ))}
           </div>
           <canvas
