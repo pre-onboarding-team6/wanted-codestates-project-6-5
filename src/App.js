@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-// import useFetch from './hooks/useFetch';
+import useFetch from './hooks/useFetch';
 import Canvas from './pages/Canvas';
-// import Result from './pages/Result';
-// import SearchHome from './pages/SearchHome';
+import Result from './pages/Result';
+import SearchHome from './pages/SearchHome';
 
 function App() {
-  // const [list, setList] = useState([]);
-  // const [dataType, setDataType] = useState([]);
-  // const [detailItem, setDetailItem] = useState([]);
-  // const { loading: ploading, data: productsData } = useFetch({
-  //   requestUrl: 'https://static.pxl.ai/problem/data/products.json',
-  // });
-  // const { loading: rloading, data: regionsData } = useFetch({
-  //   requestUrl: 'https://static.pxl.ai/problem/data/regions.json',
-  // });
+  const [list, setList] = useState([]);
+  const [dataType, setDataType] = useState([]);
+  const [detailItem, setDetailItem] = useState([]);
+  const { loading: ploading, data: productsData } = useFetch({
+    requestUrl: 'https://static.pxl.ai/problem/data/products.json',
+  });
+  const { loading: rloading, data: regionsData } = useFetch({
+    requestUrl: 'https://static.pxl.ai/problem/data/regions.json',
+  });
 
   return (
     <div>
       <Routes>
-        {/* <Route
+        <Route
           path="/"
           element={
             <SearchHome
@@ -46,7 +46,7 @@ function App() {
               rloading={rloading}
             />
           }
-        /> */}
+        />
         <Route path="/canvas" element={<Canvas />} />
       </Routes>
     </div>
