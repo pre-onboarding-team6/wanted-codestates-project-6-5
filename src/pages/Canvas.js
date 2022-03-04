@@ -35,7 +35,7 @@ export default function Canvas() {
       let result = canvasRef.current.getContext('2d');
       setCtx(result);
     }
-  }, [canvasRef.current]);
+  }, []);
 
   const startDrawing = (e) => {
     e.preventDefault();
@@ -139,7 +139,7 @@ export default function Canvas() {
       <div className="flex items-center justify-center w-full min-h-screen">
         <div className="relative">
           <div
-            className="absolute z-50 w-32 h-auto font-semibold list-outside bg-white bg-opacity-70 top-3 left-3 p-7"
+            className="absolute z-50 w-40 h-auto font-semibold list-outside bg-white bg-opacity-70 top-3 left-3 p-7"
             style={{ listStyleType: 'square' }}
           >
             {infoBoxes &&
