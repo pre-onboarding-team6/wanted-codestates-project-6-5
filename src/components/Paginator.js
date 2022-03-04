@@ -13,7 +13,7 @@ export default function Paginator({ lastPage }) {
     const queries = parseQueryString(location.search);
     if (Object.keys(queries).length > 0 && queries.page) {
       const urls = [];
-      Object.keys(queries).map((key) => {
+      Object.keys(queries).forEach((key) => {
         if (key !== 'page') {
           urls.push(`${key}=${queries[key]}`);
         }
@@ -27,7 +27,7 @@ export default function Paginator({ lastPage }) {
       setPage(1);
       setUrl(location.pathname + '?');
     }
-  }, [location.search]);
+  }, [location.search, location.pathname]);
 
   const prevItems = () => {
     const result = [];

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function useFetch({ requestUrl, maxAge = 3000 }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [data, setData] = useState();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const res = await fetch(requestUrl, {
         cache: 'default',
@@ -19,7 +19,7 @@ export default function useFetch({ requestUrl, maxAge = 3000 }) {
       setError(error);
     }
     setLoading(false);
-  };
+  }, [requestUrl, maxAge]);
 
   const refetch = async () => {
     setLoading(true);
@@ -40,7 +40,7 @@ export default function useFetch({ requestUrl, maxAge = 3000 }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return {
     loading,

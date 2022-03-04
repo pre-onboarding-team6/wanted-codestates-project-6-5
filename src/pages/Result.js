@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Detail from '../components/Detail';
@@ -26,16 +26,29 @@ const Result = () => {
   const [dataType, setDataType] = useState('');
   const [detailItem, setDetailItem] = useState([]);
 
-  const { distinguishKeyword } = searchItems({
-    ploading,
-    productsData,
-    rloading,
-    regionsData,
-    searchWord,
-    setList,
-    setDataType,
-    setDetailItem,
-  });
+  const { distinguishKeyword } = useMemo(
+    () =>
+      searchItems({
+        ploading,
+        productsData,
+        rloading,
+        regionsData,
+        searchWord,
+        setList,
+        setDataType,
+        setDetailItem,
+      }),
+    [
+      ploading,
+      productsData,
+      rloading,
+      regionsData,
+      searchWord,
+      setList,
+      setDataType,
+      setDetailItem,
+    ],
+  );
 
   // 쿼리 분석
   useEffect(() => {
@@ -48,7 +61,7 @@ const Result = () => {
     if (!ploading && !rloading) {
       distinguishKeyword();
     }
-  }, [pageStep, searchWord, ploading, rloading]);
+  }, [pageStep, searchWord, ploading, rloading, distinguishKeyword]);
 
   useEffect(() => {
     if (dataType === 'regionsData') {
