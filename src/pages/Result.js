@@ -71,7 +71,7 @@ const Result = () => {
           />
         </Link>
       </header>
-      <main className="sm:flex">
+      <main className="justify-center w-full sm:flex">
         {isDetail && <Detail item={detailItem} />}
         <ItemGrid list={filteredList} searchWord={searchWord} />
       </main>

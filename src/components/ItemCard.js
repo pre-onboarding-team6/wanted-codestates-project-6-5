@@ -17,8 +17,8 @@ const ItemCard = ({ name, imageUrl, price, searchWord }) => {
   };
 
   return (
-    <div className="shadow-lg group">
-      <div className="overflow-hidden bg-gray-200 min-w-60 h-60 round-md group-hover:opacity-75 ">
+    <div className="flex flex-col shadow-lg group">
+      <div className="flex-1 overflow-hidden bg-gray-200 min-w-60 round-md group-hover:opacity-75 ">
         <a href={imageUrl}>
           <img
             src={imageUrl}
