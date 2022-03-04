@@ -44,6 +44,7 @@ export default function Canvas() {
     const startX = pos.x;
     const startY = pos.y;
 
+    console.log(startX, startY);
     setStartXY([startX, startY]);
   };
 
@@ -73,8 +74,7 @@ export default function Canvas() {
   const finishDrawing = (e) => {
     e.preventDefault();
 
-    if (boxSize.width < 30 || boxSize.height < 30) {
-      console.log('최소 30');
+    if (Math.abs(boxSize.width) < 30 || Math.abs(boxSize.height) < 30) {
       alert('가로, 세로 길이는 최소 30px 이상이어야 합니다.');
       setIsDrawing(false);
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -94,14 +94,27 @@ export default function Canvas() {
       return;
     }
 
+    const endXY = [...startXY];
+    if (boxSize.width < 0) {
+      endXY[0] = startXY[0] - Math.abs(boxSize.width);
+    }
+    if (boxSize.height < 0) {
+      endXY[1] = startXY[1] - Math.abs(boxSize.height);
+    }
+
     const id = Date.now();
     let newInfobox = {
       id,
-      startXY,
-      boxSize,
+      startXY: endXY,
+      boxSize: {
+        width: Math.abs(boxSize.width),
+        height: Math.abs(boxSize.height),
+      },
       zindex: id,
       text,
     };
+
+    console.log(startXY);
 
     const newInfoBoxes = [...infoBoxes, newInfobox];
     setInfoBoxes(newInfoBoxes);
