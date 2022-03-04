@@ -40,6 +40,7 @@
   "조끼": ["vests"],
   "쪼끼": ["vests"],
 
+  "onepeice": ["onepiece", "dresses"],
   "onepiece": ["onepiece", "dresses"],
   "one piece": ["onepiece", "dresses"],
   "dress": ["onepiece", "dresses"],

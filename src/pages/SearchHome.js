@@ -1,41 +1,17 @@
 import React, { useState } from 'react';
-import searchItems from '../utils/searchItems';
-import keywordSet from '../lang/keyword.json';
 import { useNavigate } from 'react-router-dom';
 
-const SearchHome = ({
-  setList,
-  setDataType,
-  setDetailItem,
-  ploading,
-  productsData,
-  rloading,
-  regionsData,
-}) => {
+const SearchHome = () => {
   const navigate = useNavigate();
   const [searchWord, setSearchWord] = useState('');
-
-  const { distinguishKeyword } = searchItems({
-    ploading,
-    productsData,
-    rloading,
-    regionsData,
-    searchWord,
-    setList,
-    setDataType,
-    setDetailItem,
-    keywordSet,
-  });
 
   const handleChange = (e) => setSearchWord(e.target.value);
 
   const handleSearch = () => {
     if (searchWord === '') return;
-    // 엔터를 누르거나 검색 버튼을 클릭했을 때의 동작
-    distinguishKeyword();
     navigate({
       pathname: '/search',
-      search: `?keyword=${searchWord}`,
+      search: `?keyword=${searchWord}&page=1`,
     });
   };
 

@@ -1,16 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { parseQueryString } from '../utils/queryUtils';
 import ArrowNarrowLeftIcon from './icons/ArrowNarrowLeftIcon';
 import ArrowNarrowRightIcon from './icons/ArrowNarrowRightIcon';
-
-const parseQueryString = (url) => {
-  const [_, query] = url.split('?');
-  if (!query) return {};
-  return query.split('&').reduce((acc, e) => {
-    const [key, value] = e.split('=');
-    return { ...acc, [key]: value };
-  }, {});
-};
 
 export default function Paginator({ lastPage }) {
   const [page, setPage] = useState(1);
