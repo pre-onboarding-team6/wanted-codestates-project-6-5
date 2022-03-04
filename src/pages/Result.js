@@ -5,37 +5,56 @@ import Detail from '../components/Detail';
 import ItemGrid from '../components/ItemGrid';
 import Loader from '../components/Loader';
 import Paginator from '../components/Paginator';
+import useFetch from '../hooks/useFetch';
+import { parseQueryString } from '../utils/queryUtils';
+import searchItems from '../utils/searchItems';
 
-const Result = ({
-  list,
-  dataType,
-  detailItem,
-  ploading,
-  rloading,
-  searchWord,
-}) => {
-  const [isDetail, setIsDetail] = useState(false);
+const Result = () => {
+  const { loading: ploading, data: productsData } = useFetch({
+    requestUrl: 'https://static.pxl.ai/problem/data/products.json',
+  });
+  const { loading: rloading, data: regionsData } = useFetch({
+    requestUrl: 'https://static.pxl.ai/problem/data/regions.json',
+  });
+
+  const location = useLocation();
+  const [searchWord, setSearchWord] = useState('');
   const [pageStep, setPageStep] = useState(1);
+  const [list, setList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [isDetail, setIsDetail] = useState(false);
+  const [dataType, setDataType] = useState('');
+  const [detailItem, setDetailItem] = useState([]);
 
-  const { search: queryString } = useLocation();
+  const { distinguishKeyword } = searchItems({
+    ploading,
+    productsData,
+    rloading,
+    regionsData,
+    searchWord,
+    setList,
+    setDataType,
+    setDetailItem,
+  });
 
-  console.log(ploading, rloading); // 계속 false 나옴
+  // 쿼리 분석
+  useEffect(() => {
+    const queries = parseQueryString(location.search);
+    setSearchWord(decodeURI(queries.keyword));
+    setPageStep(queries.page);
+  }, [location.search]);
 
-  // console.log(list);  // 리로드 할 시 searchItems 함수를 다시 돌려야해서 안나옴
-  // 어떻게 해야할지... keyword도 저장해두고 있어야 하는지
+  useEffect(() => {
+    if (!ploading && !rloading) {
+      distinguishKeyword();
+    }
+  }, [pageStep, searchWord, ploading, rloading]);
 
   useEffect(() => {
     if (dataType === 'regionsData') {
       setIsDetail(true);
     }
   }, [dataType]);
-
-  useEffect(() => {
-    const step = Number(queryString.split('&')[1].split('=')[1]);
-
-    setPageStep(step);
-  }, [queryString]);
 
   useEffect(() => {
     setFilteredList(list.slice((pageStep - 1) * 10, pageStep * 10));

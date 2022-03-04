@@ -4,10 +4,10 @@ import keywordSet from '../lang/keyword.json';
 const ItemCard = ({ name, imageUrl, price, searchWord }) => {
   const highlistKeyword = (word) => {
     const [name, number] = word.split('_');
-    const nameKeyword = keywordSet[name][0];
+    const nameKeyword = keywordSet[name] ? keywordSet[name][0] : '';
     const searchKeywords = keywordSet[searchWord];
 
-    return searchKeywords.includes(nameKeyword) ? (
+    return searchKeywords?.includes(nameKeyword) ? (
       <>
         <strong>{name}</strong>_{number}
       </>

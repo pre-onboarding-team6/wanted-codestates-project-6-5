@@ -23,7 +23,7 @@ const searchItems = ({
         return;
       } else {
         const filterd = regionsData.filter(
-          (item) => item.product_code.toString() === word,
+          (item) => item.product_code.toString() === Number(word).toString(),
         );
         setDetailItem(filterd);
 
@@ -31,7 +31,6 @@ const searchItems = ({
         const keywordFilterd = productsData.filter((item) =>
           item.category_names[0].includes(category[0]),
         );
-        console.log([...keywordFilterd]);
         setList([...keywordFilterd]);
 
         setDataType('regionsData');
@@ -51,7 +50,6 @@ const searchItems = ({
           item.category_names[0].includes(category[0]),
         );
         setList([...keywordFilterd]);
-        console.log([...keywordFilterd]);
 
         setDataType('regionsData');
       }
@@ -75,7 +73,6 @@ const searchItems = ({
                   item.category_names[2].includes(keywordSet[k][i]),
               );
               setList([...keywordFilterd]);
-              console.log([...keywordFilterd]);
             }
           }
         });
