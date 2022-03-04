@@ -1,20 +1,35 @@
 import React from 'react';
+import keywordSet from '../lang/keyword.json';
 
-const ItemCard = ({ name, imageUrl, price }) => {
+const ItemCard = ({ name, imageUrl, price, searchWord }) => {
+  const highlistKeyword = (word) => {
+    const [name, number] = word.split('_');
+    const nameKeyword = keywordSet[name][0];
+    const searchKeywords = keywordSet[searchWord];
+
+    return searchKeywords.includes(nameKeyword) ? (
+      <>
+        <strong>{name}</strong>_{number}
+      </>
+    ) : (
+      word
+    );
+  };
+
   return (
-    <div className="group shadow-lg">
-      <div className="min-w-60 h-60 bg-gray-200 round-md overflow-hidden group-hover:opacity-75 ">
+    <div className="shadow-lg group">
+      <div className="overflow-hidden bg-gray-200 min-w-60 h-60 round-md group-hover:opacity-75 ">
         <a href={imageUrl}>
           <img
             src={imageUrl}
             alt={name}
-            className="w-full h-full object-center object-cover"
+            className="object-cover object-center w-full h-full"
           />
         </a>
       </div>
-      <div className="my-3 mx-2 flex flex-col relative h-11">
-        <h3 className="text-sm text-gray-700">{name}</h3>
-        <p className="text-sm font-medium text-violet-700 absolute right-0 bottom-0">
+      <div className="relative flex flex-col mx-2 my-3 h-11">
+        <h3 className="text-sm text-gray-700">{highlistKeyword(name)}</h3>
+        <p className="absolute bottom-0 right-0 text-sm font-medium text-violet-700">
           ₩{price}
         </p>
       </div>

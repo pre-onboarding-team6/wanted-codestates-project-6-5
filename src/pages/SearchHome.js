@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import searchItems from '../utils/searchItems';
-import keywordSet from '../lang/keyword.json';
 import { useNavigate } from 'react-router-dom';
 
 const SearchHome = ({
@@ -11,9 +10,10 @@ const SearchHome = ({
   productsData,
   rloading,
   regionsData,
+  searchWord,
+  setSearchWord,
 }) => {
   const navigate = useNavigate();
-  const [searchWord, setSearchWord] = useState('');
 
   const { distinguishKeyword } = searchItems({
     ploading,
@@ -24,7 +24,6 @@ const SearchHome = ({
     setList,
     setDataType,
     setDetailItem,
-    keywordSet,
   });
 
   const handleChange = (e) => setSearchWord(e.target.value);
@@ -32,10 +31,11 @@ const SearchHome = ({
   const handleSearch = () => {
     if (searchWord === '') return;
     // 엔터를 누르거나 검색 버튼을 클릭했을 때의 동작
+    localStorage.setItem('keyword', searchWord);
     distinguishKeyword();
     navigate({
       pathname: '/search',
-      search: `?keyword=${searchWord}`,
+      search: `?keyword=${searchWord}&page=1`,
     });
   };
 

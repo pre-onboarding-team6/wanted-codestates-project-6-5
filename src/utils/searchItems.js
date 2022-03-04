@@ -1,3 +1,5 @@
+import keywordSet from '../lang/keyword.json';
+
 const searchItems = ({
   ploading,
   productsData,
@@ -7,7 +9,6 @@ const searchItems = ({
   setList,
   setDataType,
   setDetailItem,
-  keywordSet,
 }) => {
   let word = searchWord.trim();
   const checkNum = /^-?\d+$/;

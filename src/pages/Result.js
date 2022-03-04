@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Detail from '../components/Detail';
 import ItemGrid from '../components/ItemGrid';
 import Loader from '../components/Loader';
 import Paginator from '../components/Paginator';
 
-const Result = ({ list, dataType, detailItem, ploading, rloading }) => {
+const Result = ({
+  list,
+  dataType,
+  detailItem,
+  ploading,
+  rloading,
+  searchWord,
+}) => {
   const [isDetail, setIsDetail] = useState(false);
   const [pageStep, setPageStep] = useState(1);
   const [filteredList, setFilteredList] = useState([]);
 
+  const { search: queryString } = useLocation();
+
   console.log(ploading, rloading); // 계속 false 나옴
 
-  console.log(list);
+  // console.log(list);  // 리로드 할 시 searchItems 함수를 다시 돌려야해서 안나옴
+  // 어떻게 해야할지... keyword도 저장해두고 있어야 하는지
 
   useEffect(() => {
     if (dataType === 'regionsData') {
@@ -21,8 +31,18 @@ const Result = ({ list, dataType, detailItem, ploading, rloading }) => {
     }
   }, [dataType]);
 
+  useEffect(() => {
+    const step = Number(queryString.split('&')[1].split('=')[1]);
+
+    setPageStep(step);
+  }, [queryString]);
+
+  useEffect(() => {
+    setFilteredList(list.slice((pageStep - 1) * 10, pageStep * 10));
+  }, [list, pageStep]);
+
   return (
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
       <header className="flex py-5 px-7">
         <Link to="/">
           <img
@@ -34,12 +54,11 @@ const Result = ({ list, dataType, detailItem, ploading, rloading }) => {
       </header>
       <main className="sm:flex">
         {isDetail && <Detail item={detailItem} />}
-        <ItemGrid list={list} />
-        <Paginator lastPage={Math.ceil(list.length / 10)} />
+        <ItemGrid list={filteredList} searchWord={searchWord} />
       </main>
+      <Paginator lastPage={Math.ceil(list.length / 10)} />
       {(ploading || rloading) && (
-        <div>
-          {/* width height 100 viewport로 */}
+        <div className="absolute flex items-center justify-center w-screen h-screen bg-white">
           <Loader />
         </div>
       )}
