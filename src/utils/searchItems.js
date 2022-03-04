@@ -27,13 +27,14 @@ const searchItems = ({
         );
         setDetailItem(filterd);
 
-        const category = filterd[0]['category_names'];
-        const keywordFilterd = productsData.filter((item) =>
-          item.category_names[0].includes(category[0]),
-        );
-        setList([...keywordFilterd]);
-
-        setDataType('regionsData');
+        if (filterd.length > 0) {
+          const category = filterd[0]['category_names'];
+          const keywordFilterd = productsData.filter((item) =>
+            item.category_names[0].includes(category[0]),
+          );
+          setList([...keywordFilterd]);
+          setDataType('regionsData');
+        }
       }
       //2. 이미지 주소 - regionsData
     } else if (isUrl) {
