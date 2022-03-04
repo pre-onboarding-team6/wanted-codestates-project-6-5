@@ -12,7 +12,7 @@ const searchItems = ({
 }) => {
   let word = searchWord.trim();
   const checkNum = /^-?\d+$/;
-  const checkUrl = /^http[s]?\:\/\//i;
+  const checkUrl = /^http[s]?:\/\//i;
   const isNum = checkNum.test(word) ? true : false;
   const isUrl = checkUrl.test(word) ? true : false;
 

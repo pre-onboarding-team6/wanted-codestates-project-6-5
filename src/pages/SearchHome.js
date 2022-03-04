@@ -29,7 +29,7 @@ const SearchHome = () => {
         />
         <button
           type="button"
-          className="w-40 mt-5 bg-gray-300 rounded-md h-11 sm:ml-5 sm:mt-0 sm:w-30"
+          className="w-40 bg-gray-300 rounded-md h-11 sm:ml-5 sm:mt-0 sm:w-30"
           onClick={onMoveCanvas}
         >
           과제 2로 이동
