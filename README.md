@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# [**Project 4**] 케어닥 실습 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🔗 배포 주소
 
-## Available Scripts
+- 아래 URL을 클릭하면 배포된 페이지로 이동합니다.
 
-In the project directory, you can run:
+*과제 1 과제 2가 모두 포함되어 있습니다. (Header 오른쪽 상단 과제 2로 이동 클릭 시 과제 2 확인 가능)
 
-### `npm start`
+https://oddconcepts-fe.netlify.app/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ****⚙****개발 환경
 
-### `npm run build`
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🧑 참여 멤버
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 김도연 : 과제 1 - 컴포넌트 및 스타일 구현 
+- 유지수 : 과제 1 - 언어 팩 생성 및 페이지/컴포넌트 취합
+- 유혜정 : 과제 2 구현
+- 손한빈 : 과제 1 - 페이지네이션, 데이터 fetching 구현 
+- 박세은 : 과제 1 - 검색 및 필터링 기능 구현
 
-### `npm run eject`
+<br>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🕹  설치 및 시작방법
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+# install dependencies
+ $ npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# serve with hot reload at localhost:3000
+ $ npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
 
-## Learn More
+## 📝 구현 목록
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 기능
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 라우팅
+- 리스트 페이지에서 아이템 클릭 시 image url로 이동 (디테일 페이지 X)
+- PXL 로고 클릭 시 검색 창으로 다시 돌아오기
 
-### Code Splitting
+#### 검색 기능
+- keyword 검색
+    - 원 페이지
+        - product.json의 category_names와 일치하거나 유사한 것 나열 (클릭 시 url 이동)
+        - 검색어 강조
+        - 페이지네이션
+- image_url / product_code 검색
+    - Left Aside
+        - 검색한 것과 정확히 일치한 상품 이미지 (클릭 X)
+        - ITEMS 및 ATTRIBUITES 나열
+    - Right Aside
+        - 검색한 것과 카테고리가 일치하거나 유사한 것들 나열 (클릭 시 url 이동)
+        - 페이지네이션
+#### 기타
+- 반응형 구현
+- 데이터 로딩 스피너 추가 및 다른 액션 차단
+- 캐시 사용하여 새로고침 시에 http 요청하지 않고 캐시된 데이터 사용
+- url 검색 쿼리 네이밍 직관성
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### ✅ 검색 페이지
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### ✅ 결과(리스트) 페이지
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### ✅ canvas 페이지 (과제 2)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<br>
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🗂 프로젝트 구조
+```
+📁src
+│  App.js
+│  index.js
+│  reset.css
+│
+├─📁components
+│	│ Tag.js
+│	│ ItemCard.js
+│	│ ItemGrid.js
+│	│ Detail.js
+│	│ Loader.js
+│	└─Paginator.js
+│
+├─📁pages
+│      SearchHome.js
+│      Result.js
+├─📁hooks
+│	└─useFetch.js
+│			
+└─📁utils
+	│ searchItems.js
+	└─queryUtils.js
+```
