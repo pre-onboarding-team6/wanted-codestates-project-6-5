@@ -101,11 +101,6 @@ export default function Paginator({ lastPage }) {
       <div className="hidden md:-mt-px md:flex">
         {prevItems()}
         {currentItem()}
-        {nextItems().length > 0 && (
-          <span className="inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent">
-            ...
-          </span>
-        )}
         {nextItems()}
       </div>
       <div className="flex justify-end flex-1 w-0 -mt-px">
