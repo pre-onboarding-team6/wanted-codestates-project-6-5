@@ -29,6 +29,19 @@ export default function Paginator({ lastPage }) {
     }
   }, [location.search, location.pathname]);
 
+  const firstItems = () => {
+    const result = [];
+    result.push(
+      <Link
+        key={1}
+        className="inline-flex items-center pt-4 pr-1 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:text-gray-700 hover:border-gray-300"
+        to={`${url}page=${1}`}
+      >
+        {1}
+      </Link>,
+    );
+    return result;
+  };
   const prevItems = () => {
     const result = [];
     for (let i = page - 3; i < page; i++) {
@@ -59,7 +72,6 @@ export default function Paginator({ lastPage }) {
     );
     return result;
   };
-
   const nextItems = () => {
     const result = [];
     for (let i = page + 1; i <= page + 3; i++) {
@@ -75,6 +87,19 @@ export default function Paginator({ lastPage }) {
         );
       }
     }
+    return result;
+  };
+  const lastItems = () => {
+    const result = [];
+    result.push(
+      <Link
+        key={lastPage}
+        className="inline-flex items-center pt-4 pr-1 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:text-gray-700 hover:border-gray-300"
+        to={`${url}page=${lastPage}`}
+      >
+        {lastPage}
+      </Link>,
+    );
     return result;
   };
 
@@ -99,9 +124,21 @@ export default function Paginator({ lastPage }) {
         </Link>
       </div>
       <div className="hidden md:-mt-px md:flex">
+        {page > 4 && firstItems()}
+        {page > 5 && (
+          <span className="inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent">
+            ...
+          </span>
+        )}
         {prevItems()}
         {currentItem()}
-        {nextItems()}
+        {page < lastPage && nextItems()}
+        {page < lastPage - 4 && nextItems().length > 0 && (
+          <span className="inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent">
+            ...
+          </span>
+        )}
+        {page < lastPage - 3 && lastItems()}
       </div>
       <div className="flex justify-end flex-1 w-0 -mt-px">
         <Link

@@ -70,7 +70,7 @@ const Result = () => {
   }, [dataType]);
 
   useEffect(() => {
-    setFilteredList(list.slice((pageStep - 1) * 10, pageStep * 10));
+    setFilteredList(list.slice((pageStep - 1) * 30, pageStep * 30));
   }, [list, pageStep]);
 
   return (
@@ -88,7 +88,7 @@ const Result = () => {
         {isDetail && <Detail item={detailItem} />}
         <ItemGrid list={filteredList} searchWord={searchWord} />
       </main>
-      <Paginator lastPage={Math.ceil(list.length / 10)} />
+      <Paginator lastPage={Math.ceil(list.length / 30)} />
       {(ploading || rloading) && (
         <div className="absolute flex items-center justify-center w-screen h-screen bg-white">
           <Loader />
